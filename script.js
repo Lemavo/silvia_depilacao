@@ -51,7 +51,14 @@
 
   /* ===== Reveal ===== */
   const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: .15, rootMargin: '0px 0px -6% 0px' });
-  $$('.reveal,.reveal-clip').forEach(el => io.observe(el));
+  $$('.reveal').forEach(el => io.observe(el));
+  // Elementos recortados (clip-path) têm área visível zero e não disparam o observador: observa-se o pai.
+  const clipMap = new Map();
+  const cpio = new IntersectionObserver(es => es.forEach(e => {
+    if (!e.isIntersecting) return; cpio.unobserve(e.target);
+    (clipMap.get(e.target) || []).forEach(c => c.classList.add('in'));
+  }), { threshold: 0, rootMargin: '0px 0px -8% 0px' });
+  $$('.reveal-clip').forEach(el => { const p = el.parentElement; if (!clipMap.has(p)) { clipMap.set(p, []); cpio.observe(p); } clipMap.get(p).push(el); });
 
   /* ===== Contadores ===== */
   const cio = new IntersectionObserver(es => es.forEach(e => {
@@ -82,6 +89,7 @@
       const idx = Math.min(steps.length - 1, Math.floor(p * steps.length * 0.999));
       steps.forEach((s, i) => s.classList.toggle('on', i <= idx));
     }
+    $$('.reveal-clip:not(.in)').forEach(el => { const r = el.getBoundingClientRect(); if (r.top < vh * 0.92 && r.bottom > 0) el.classList.add('in'); });
     par.forEach(el => { const r = el.parentElement.getBoundingClientRect(); if (r.bottom < 0 || r.top > vh) return; el.style.transform = `translateY(${(r.top + r.height / 2 - vh / 2) * parseFloat(el.dataset.speed) - 20}px)`; });
   };
   const onScroll = () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } };
