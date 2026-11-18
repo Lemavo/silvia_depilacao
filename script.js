@@ -1,4 +1,4 @@
-﻿(() => {
+(() => {
   'use strict';
   /* ===== Configuração interna ===== */
   const WA_NUMBER = '5544984564559';
