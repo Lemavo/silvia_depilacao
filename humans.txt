@@ -1,0 +1,11 @@
+﻿/* TEAM */
+Site: Silvia Depilação
+Location: Maringá, Paraná, Brasil
+
+/* DEVELOPMENT */
+Desenvolvido por: LiaxaTech
+Site: https://liaxa.vercel.app
+
+/* SITE */
+Last update: 2026/11/18
+Standards: HTML5, CSS3, JavaScript, Schema.org

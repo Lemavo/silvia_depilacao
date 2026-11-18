@@ -1,0 +1,10 @@
+﻿# Materiais brutos (não vão para o site)
+_silviadepilacao/
+silvi.adepilacao/
+*.zip
+logo_silvia_depilacao.jpg
+silvia_da_depilacao.jpg
+logo-liaxa.png
+SILVIA_DEPILAÇÃO_LOGO.jpg
+.vercel
+.DS_Store
